@@ -9,8 +9,14 @@ let g:spacevim_localleader = ','
 
 " space-vim layers
 let g:spacevim_layers = [
+  \ 'fzf',
+  \ 'better-defaults',
+  \ 'which-key',
   \ 'file-manager',
+  \ 'programming',
   \ 'go',
+  \ 'javascript',
+  \ 'typescript',
   \]
 
 " true color
