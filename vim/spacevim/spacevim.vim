@@ -25,5 +25,8 @@ function! UserInit()
 endfunction
 
 function! UserConfig()
-" set norelativenumber
+
+" vim-go
+let g:go_imports_autosave = 1
+
 endfunction
