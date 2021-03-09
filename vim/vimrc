@@ -1,0 +1,76 @@
+" sets the character encoding used inside Vim.
+set encoding=utf-8
+
+" loads vim defaults options
+source $VIMRUNTIME/vimrc_example.vim
+
+" disabled backup
+set nobackup
+
+" sets undo
+if has('persistent_undo')
+  set undofile
+  set undodir=~/.vim/undodir
+  if !isdirectory(&undodir)
+    call mkdir(&undodir, 'p', 0700)
+  endif
+endif
+  
+" sets mouse
+if has('mouse')
+  if has('gui_running') || (&term =~ 'xterm' && !has('mac'))
+    set mouse=a
+  else
+    set mouse=nvi
+  endif
+endif
+
+" set scroll
+set scrolloff=1
+ 
+" key mapping for stop highlighting
+nnoremap <silent> <F2> :nohlsearch<CR>
+inoremap <silent> <F2> <C-O>:nohlsearch<CR>
+
+au FileType json setlocal expandtab shiftwidth=2 softtabstop=2
+au FileType vim  setlocal expandtab shiftwidth=2 softtabstop=2
+au FileType help nnoremap <buffer> q <C-W>q
+
+" syntax highlighting
+syntax enable
+
+" line number
+set number
+set relativenumber
+
+"============= plugins ====================
+call plug#begin('~/.vim/plugged')
+
+" theme
+Plug 'morhetz/gruvbox'
+
+" go
+Plug 'fatih/vim-go', { 'tag': 'v1.24' }
+
+" file exporter
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+
+call plug#end()
+"------------------------------------------
+
+"============= Theme ======================
+set background=dark
+colorscheme gruvbox
+"------------------------------------------
+
+"============= Go =========================
+let g:go_imports_autosave = 1
+"------------------------------------------
+
+"============ File Exporter ===============
+" Start NERDTree
+autocmd VimEnter * NERDTree
+
+" Exit Vim if NERDTree is the only window left.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+"------------------------------------------
