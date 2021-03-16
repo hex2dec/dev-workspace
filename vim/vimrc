@@ -32,12 +32,10 @@ set scrolloff=1
 nnoremap <silent> <F2> :nohlsearch<CR>
 inoremap <silent> <F2> <C-O>:nohlsearch<CR>
 
-au FileType json setlocal expandtab shiftwidth=2 softtabstop=2
-au FileType vim  setlocal expandtab shiftwidth=2 softtabstop=2
-au FileType help nnoremap <buffer> q <C-W>q
-
 " syntax highlighting
 syntax enable
+" use new regular expression engine
+set re=0
 
 " line number
 set number
@@ -45,34 +43,53 @@ set number
 " show command
 set showcmd
 
-"============= plugins ====================
+" Plugins
+"====================================================================
 call plug#begin('~/.vim/plugged')
 
 " theme
 Plug 'morhetz/gruvbox'
 
-" go
-Plug 'fatih/vim-go', { 'tag': 'v1.24' }
-
 " file exporter
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 
-call plug#end()
-"------------------------------------------
+" go
+Plug 'fatih/vim-go', { 'tag': 'v1.24' }
 
-"============= Theme ======================
+" typescript
+Plug 'HerringtonDarkholme/yats.vim'
+
+call plug#end()
+"---------------------------------------------------------------------
+
+" Theme
+"=====================================================================
 set background=dark
 colorscheme gruvbox
-"------------------------------------------
+"---------------------------------------------------------------------
 
-"============= Go =========================
-let g:go_imports_autosave = 1
-"------------------------------------------
-
-"============ File Exporter ===============
-" Start NERDTree and put the cursor back in the other window
+" File Exporter
+"=====================================================================
+" start NERDTree and put the cursor back in the other window
 autocmd VimEnter * NERDTree | wincmd p
 
-" Exit Vim if NERDTree is the only window left.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-"------------------------------------------
+" exit Vim if NERDTree is the only window left.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1
+  \ && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+"----------------------------------------------------------------------
+
+" The Vim Script & Help
+"======================================================================
+au FileType vim  setlocal expandtab shiftwidth=2 softtabstop=2
+au FileType help nnoremap <buffer> q <C-W>q
+"----------------------------------------------------------------------
+
+" The JavaScript & TypeScript Programming Language
+"======================================================================
+au FileType json setlocal expandtab shiftwidth=2 softtabstop=2
+"----------------------------------------------------------------------
+
+" The Go Programming Language
+"======================================================================
+let g:go_imports_autosave = 1
+"----------------------------------------------------------------------
